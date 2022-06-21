@@ -138,6 +138,9 @@ In order to add the gdal extensions, the following volume is mounted
 
        - ./geoserver-webapp/WEB-INF/lib:/var/lib/jetty/webapps/geoserver/WEB-INF/lib
        
+
+you can reach all .jars out the following that url: [geoserver-webapp](https://www.dropbox.com/s/5cmqcjl2q8mlvbc/geoserver-webapp.zip?dl=0)
+       
 Afterthat, instead of throwing the relevant jars into the container, we follow below path:
 
 1.Put the jars into `/home/geosolutions/docker/geoserver-webapp/WEB-INF/lib` folder on VM
