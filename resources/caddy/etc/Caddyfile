@@ -3,8 +3,8 @@
     file_server
 }
 
-{$FQDN} {
-    tls internal
+{$CADDY_FQDN} {
+
     # For using a custom certificate:
     # tls /etc/certs/ca.pem /etc/certs/key.pem
 

@@ -1,8 +1,12 @@
 [submodule "config"]
 	path = config
-	url = https://github.com/georchestra/datadir.git
-	branch = docker-24.0
+	url = https://github.com/geosolutions-it/georchestra-datadir.git
+	branch = dtt-24.0
 [submodule "resources/static"]
 	path = resources/static
-	url = https://github.com/georchestra/htdocs.git
-	branch = master
+	url = https://github.com/geosolutions-it/georchestra-htdocs.git
+	branch = dtt-24.0 
+[submodule "header"]
+	path = header
+	url = https://github.com/geosolutions-it/georchestra-header.git
+	branch = dtt-24.0

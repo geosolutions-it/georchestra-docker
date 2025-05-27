@@ -1,4 +1,5 @@
 # envs-common
-FQDN=georchestra-127-0-0-1.nip.io
+FQDN=localhost
 SMTPHOST=smtp
 SMTPPORT=25
+CADDY_FQDN=http://localhost
