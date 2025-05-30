@@ -51,10 +51,10 @@ services:
       - smtp_maildir:/home/smtp/Maildir/
     restart: always
 
-  ssh:
-    image: georchestra/ssh_data:latest
-    ports:
-      - "2222:22"
-    volumes:
-      - geoserver_geodata:/mnt/geoserver_geodata
-    restart: always
+  # ssh:
+  #   image: georchestra/ssh_data:latest
+  #   ports:
+  #     - "2222:22"
+  #   volumes:
+  #     - geoserver_geodata:/mnt/geoserver_geodata
+  #   restart: always

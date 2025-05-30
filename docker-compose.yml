@@ -225,7 +225,7 @@ services:
     restart: always
 
   datahub:
-    image: geonetwork/geonetwork-ui-datahub:latest
+    image: geonetwork/geonetwork-ui-datahub:main-600519f47
     healthcheck:
       test: ["CMD-SHELL", "curl -s -f http://localhost:80/datahub/ >/dev/null || exit 1"]
       interval: 30s
@@ -285,64 +285,64 @@ services:
       - .envs-database-georchestra
     restart: always
 
-  postgis:
-    # used by datafeeder to ingest uploaded user datasets into
-    image: postgis/postgis:13-3.1-alpine
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
-      interval: 10s
-      timeout: 3s
-      retries: 3
-    depends_on:
-      envsubst:
-        condition: service_completed_successfully
-    env_file:
-      - .envs-database-datafeeder
-    volumes:
-      - datafeeder_postgis_data:/var/lib/postgresql/data
-    restart: always
+  # postgis:
+  #   # used by datafeeder to ingest uploaded user datasets into
+  #   image: postgis/postgis:13-3.1-alpine
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+  #     interval: 10s
+  #     timeout: 3s
+  #     retries: 3
+  #   depends_on:
+  #     envsubst:
+  #       condition: service_completed_successfully
+  #   env_file:
+  #     - .envs-database-datafeeder
+  #   volumes:
+  #     - datafeeder_postgis_data:/var/lib/postgresql/data
+  #   restart: always
 
-  datafeeder:
-    image: georchestra/datafeeder:24.0.x
-    healthcheck:
-      test: ["CMD-SHELL", "curl -s -f http://localhost:8080/datafeeder >/dev/null || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 10
-    depends_on:
-      database:
-        condition: service_healthy
-      postgis:
-        condition: service_healthy
-    volumes:
-      - georchestra_datadir:/etc/georchestra
-      - datafeeder_uploads:/tmp/datafeeder
-    environment:
-      - JAVA_OPTS=-Xms512m -Xmx512m
-      # You can set a higher loglevel this way: (ref. https://docs.spring.io/spring-boot/docs/2.1.13.RELEASE/reference/html/boot-features-logging.html#boot-features-custom-log-levels)
-      - LOGGING_LEVEL_ORG_GEORCHESTRA_DATAFEEDER=INFO
-    env_file:
-      - .envs-common
-      - .envs-hosts
-      - .envs-database-georchestra
-      - .envs-database-datafeeder
-    restart: always
+  # datafeeder:
+  #   image: georchestra/datafeeder:24.0.x
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "curl -s -f http://localhost:8080/datafeeder >/dev/null || exit 1"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 10
+  #   depends_on:
+  #     database:
+  #       condition: service_healthy
+  #     postgis:
+  #       condition: service_healthy
+  #   volumes:
+  #     - georchestra_datadir:/etc/georchestra
+  #     - datafeeder_uploads:/tmp/datafeeder
+  #   environment:
+  #     - JAVA_OPTS=-Xms512m -Xmx512m
+  #     # You can set a higher loglevel this way: (ref. https://docs.spring.io/spring-boot/docs/2.1.13.RELEASE/reference/html/boot-features-logging.html#boot-features-custom-log-levels)
+  #     - LOGGING_LEVEL_ORG_GEORCHESTRA_DATAFEEDER=INFO
+  #   env_file:
+  #     - .envs-common
+  #     - .envs-hosts
+  #     - .envs-database-georchestra
+  #     - .envs-database-datafeeder
+  #   restart: always
 
-  import:
-    image: georchestra/datafeeder-frontend:24.0.x
-    healthcheck:
-      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://127.0.0.1:80/ >/dev/null || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 10
-    depends_on:
-      envsubst:
-        condition: service_completed_successfully
-    environment:
-      CUSTOM_SCRIPTS_DIRECTORY: /etc/georchestra/datafeeder/scripts/import
-    volumes:
-      - georchestra_datadir:/etc/georchestra
-    restart: always
+  # import:
+  #   image: georchestra/datafeeder-frontend:24.0.x
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://127.0.0.1:80/ >/dev/null || exit 1"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 10
+  #   depends_on:
+  #     envsubst:
+  #       condition: service_completed_successfully
+  #   environment:
+  #     CUSTOM_SCRIPTS_DIRECTORY: /etc/georchestra/datafeeder/scripts/import
+  #   volumes:
+  #     - georchestra_datadir:/etc/georchestra
+  #   restart: always
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.17.21
@@ -381,24 +381,24 @@ services:
       - ./resources/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
     restart: always
 
-  ogc-api-records:
-    image: geonetwork/gn-cloud-ogc-api-records-service:4.2.8-0
-    depends_on:
-      geonetwork:
-        condition: service_healthy
-      database:
-        condition: service_healthy
-      elasticsearch:
-        condition: service_healthy
-    environment:
-      LANG: en_US.UTF-8
-      SERVER_SERVLET_CONTEXT_PATH: /ogc-api-records
-      SPRING_CONFIG_LOCATION: file:///etc/georchestra/geonetwork/microservices/ogc-api-records/config.yml
-      SPRING_PROFILES_ACTIVE: standalone
-      JAVA_OPTS: -Dfile.encoding=UTF-8
-    volumes:
-      - georchestra_datadir:/etc/georchestra
-    restart: always
+  # ogc-api-records:
+  #   image: geonetwork/gn-cloud-ogc-api-records-service:4.2.8-0
+  #   depends_on:
+  #     geonetwork:
+  #       condition: service_healthy
+  #     database:
+  #       condition: service_healthy
+  #     elasticsearch:
+  #       condition: service_healthy
+  #   environment:
+  #     LANG: en_US.UTF-8
+  #     SERVER_SERVLET_CONTEXT_PATH: /ogc-api-records
+  #     SPRING_CONFIG_LOCATION: file:///etc/georchestra/geonetwork/microservices/ogc-api-records/config.yml
+  #     SPRING_PROFILES_ACTIVE: standalone
+  #     JAVA_OPTS: -Dfile.encoding=UTF-8
+  #   volumes:
+  #     - georchestra_datadir:/etc/georchestra
+  #   restart: always
 
   rabbitmq:
     image: docker.io/bitnami/rabbitmq:3.12
