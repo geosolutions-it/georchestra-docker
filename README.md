@@ -1,5 +1,7 @@
 # Integration of Digital Twin Toolbox in geOrchestra with Docker
 
+This branch showcase an integration of the [digital-twin-toolbox](https://github.com/geosolutions-it/digital-twin-toolbox) services inside the geOrchestra application. This setup **is not** production ready with the sole purpose of an experimental test.
+
 ## Quick Start
 
 **1. Prerequisite**
@@ -55,3 +57,17 @@ Open [http://localhost/](http://localhost/) in your browser. Then:
 To login, use these credentials:
  * `testuser` / `testuser`
  * `testadmin` / `testadmin`
+
+**5. Digital Twin Toolbox User Interface**
+
+- An admin super user (eg. `testadmin`) can access to the digital twin toolbox page using the administration
+![Admin user clicking on the DigitalTwinToolbox menu item inside the admin dropdown](img/01.jpg)
+
+- Inside the `Digital Twin Toolbox` section (url path `/dtt/`) a user can upload assets and create 3D Tiles. It is possible to follow this [tutorial](https://github.com/geosolutions-it/digital-twin-toolbox/wiki/Tutorials) section to discover currently supported asset formats and available pipelines using the sample data.
+![Digital Twin Toolbox viewer integrated in geOrchestra displaying 3D building](img/02.jpg)
+
+- Installing the experimental [DigitalTwinToolboxCatalog](https://github.com/geosolutions-it/DigitalTwinToolboxCatalog/releases/download/v1.0.0-rc/DigitalTwinToolboxCatalog.zip) ([release v1.0.0-rc](https://github.com/geosolutions-it/DigitalTwinToolboxCatalog/releases/tag/v1.0.0-rc)) MapStore extension is possible to access the digital twin toolbox catalog and visualize generated 3D tiles in a viewer application. It's important to configure the plugin cfg `url` property with the following path `"/dtt-api/api/v1/"`
+![Installation and configuration of the DigitalTwinToolboxCatalog extension inside the viewer wizard](img/03.jpg)
+
+- Finally the `DigitalTwinToolboxCatalog` in action inside the MapStore viewer connecting to the digital twin toolbox pipeline API
+![MapStore viewer with installed the DigitalTwinToolboxCatalog extension and a 3D Tiles imported in the map](img/04.jpg)
