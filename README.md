@@ -25,8 +25,21 @@ git clone --recurse-submodules https://github.com/geosolutions-it/georchestra-do
 
 Switch to the experimental branch dtt-24.0:
 ```
-git checkout dtt-24.0 && git submodule update
+git checkout dtt-24.0
 ```
+
+Update submodule with:
+```
+git submodule update
+```
+
+[Optional] On Windows OS you may need to ensure `LF` end of line, you can update it with:
+
+```
+./update-eol.bat
+```
+
+There is also an .sh version of the same script `update-eol.sh`
 
 **3. Run**
 
