@@ -53,7 +53,6 @@ If you still want to use the old `docker-compose` (V1), you need to remove all t
 To run:
 
 ```
-cd docker
 docker compose up -d
 ```
 
